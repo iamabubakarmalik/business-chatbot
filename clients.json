@@ -1,0 +1,14 @@
+{
+  "a1b2c3": {
+    "name": "Test Business",
+    "plan": "free",
+    "email": "owner@test.com",
+    "password": "12345"
+  },
+  "bb88c1de": {
+    "name": "Test Business",
+    "email": "owner@test.com",
+    "password": "12345",
+    "plan": "free"
+  }
+}

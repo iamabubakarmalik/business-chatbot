@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f4f4;
+        }
+        .box {
+            width: 350px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        table {
+            width: 90%;
+            margin: 30px auto;
+            border-collapse: collapse;
+            background: white;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background: #333;
+            color: white;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<!-- LOGIN BOX -->
+<div class="box" id="loginBox">
+    <h3>Admin Login</h3>
+
+    <input id="username" placeholder="Username">
+    <input id="password" type="password" placeholder="Password">
+
+    <button onclick="login()">Login</button>
+
+    <div id="loginResult"></div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard" class="hidden">
+    <h2 style="text-align:center;">📊 Leads Dashboard</h2>
+
+    <table id="leadsTable">
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Client ID</th>
+        </tr>
+    </table>
+</div>
+
+<script>
+const API = "http://127.0.0.1:5000";
+
+function login() {
+    fetch(API + "/admin/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            username: username.value,
+            password: password.value
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            localStorage.setItem("admin_token", data.token);
+            loginBox.classList.add("hidden");
+            dashboard.classList.remove("hidden");
+            loadLeads();
+        } else {
+            loginResult.innerHTML = "❌ Wrong credentials";
+        }
+    });
+}
+
+function loadLeads() {
+    fetch(API + "/admin/leads", {
+        headers: {
+            "Authorization": localStorage.getItem("admin_token")
+        }
+    })
+    .then(res => res.json())
+    .then(leads => {
+        leads.forEach(lead => {
+            let row = leadsTable.insertRow();
+            row.insertCell(0).innerText = lead.name;
+            row.insertCell(1).innerText = lead.email;
+            row.insertCell(2).innerText = lead.client_id;
+        });
+    });
+}
+</script>
+
+</body>
+</html>
