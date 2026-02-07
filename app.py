@@ -53,6 +53,23 @@ def save_json(file, data):
 def error(msg, code=400):
     return jsonify({"success": False, "error": msg}), code
 
+def ensure_demo_client():
+    clients = load_json(CLIENT_FILE, {})
+    if "demo" not in clients:
+        clients["demo"] = {
+            "name": "Demo Business",
+            "email": "",
+            "password": "",
+            "plan": "demo",
+            "business": {
+                "industry": "SaaS",
+                "services": "AI Chatbot Demo",
+                "pricing": "Free demo",
+                "tone": "friendly"
+            }
+        }
+        save_json(CLIENT_FILE, clients)
+
 # ======================
 # AI REPLY
 # ======================

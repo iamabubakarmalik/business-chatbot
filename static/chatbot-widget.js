@@ -1,6 +1,6 @@
 (function () {
-const CLIENT_ID = "bb88c1de";
-const USER_ID = "web-" + Math.random().toString(36).slice(2);
+  const CLIENT_ID = window.CHATBOT_CLIENT_ID || "demo";
+  const USER_ID = "web-" + Math.random().toString(36).slice(2);
 
   const bubble = document.createElement("div");
   bubble.innerText = "💬";
