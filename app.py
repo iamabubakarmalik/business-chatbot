@@ -286,6 +286,10 @@ def home():
 def pricing():
     return render_template("pricing.html")
 
+@app.route("/login")
+def login_page():
+    return render_template("login.html")
+
 # ======================
 # RUN
 # ======================
