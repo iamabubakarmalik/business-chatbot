@@ -70,6 +70,8 @@ def ensure_demo_client():
         }
         save_json(CLIENT_FILE, clients)
 
+ensure_demo_client()
+
 # ======================
 # AI REPLY
 # ======================
@@ -279,6 +281,10 @@ def health():
 @app.route("/")
 def home():
     return render_template("index.html")
+
+@app.route("/pricing")
+def pricing():
+    return render_template("pricing.html")
 
 # ======================
 # RUN
