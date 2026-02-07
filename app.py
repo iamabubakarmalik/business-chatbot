@@ -21,7 +21,12 @@ LEADS_FILE = "leads.json"
 # ======================
 # APP
 # ======================
-app = Flask(__name__)
+app = Flask(
+    __name__,
+    static_folder="static",
+    template_folder="templates"
+)
+
 CORS(app)
 
 ai_client = OpenAI()
@@ -133,6 +138,10 @@ def admin_leads():
         return error("Unauthorized", 403)
 
     return jsonify(load_json(LEADS_FILE, []))
+
+@app.route("/admin")
+def admin_page():
+    return render_template("admin.html")
 
 # ======================
 # CLIENT
