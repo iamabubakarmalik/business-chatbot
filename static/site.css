@@ -1,64 +1,161 @@
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  background: #f7f7f7;
-  color: #333;
+/* =========================
+   GLOBAL
+========================= */
+* {
+  box-sizing: border-box;
 }
 
+body {
+  margin: 0;
+  font-family: Inter, Arial, sans-serif;
+  background: #f6f7fb;
+  color: #222;
+  line-height: 1.6;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* =========================
+   HERO
+========================= */
 .hero {
-  background: #111;
-  color: white;
-  padding: 80px 20px;
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  color: #fff;
+  padding: 90px 20px;
   text-align: center;
+}
+
+.hero h1 {
+  font-size: 42px;
+  margin-bottom: 12px;
+}
+
+.hero p {
+  font-size: 18px;
+  opacity: 0.9;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+.buttons {
+  margin-top: 30px;
 }
 
 .btn {
   display: inline-block;
-  padding: 12px 20px;
-  margin: 10px;
-  border: 1px solid white;
-  color: white;
-  text-decoration: none;
+  padding: 14px 28px;
+  border-radius: 8px;
+  margin: 8px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  border: 1px solid rgba(255,255,255,0.4);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
 }
 
 .btn.primary {
-  background: #4CAF50;
+  background: #22c55e;
   border: none;
+  color: #062a13;
 }
 
+/* =========================
+   SECTIONS
+========================= */
 .section {
-  padding: 50px 20px;
-  max-width: 900px;
+  max-width: 1100px;
   margin: auto;
+  padding: 70px 20px;
+}
+
+.section h2 {
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+
+.section p {
+  max-width: 650px;
 }
 
 .section.dark {
-  background: #eee;
+  background: #eef1f7;
 }
 
+/* =========================
+   GRID / USE CASES
+========================= */
 .grid {
+  list-style: none;
+  padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 15px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+  margin-top: 30px;
 }
 
-footer {
-  background: #111;
-  color: white;
-  text-align: center;
+.grid li {
+  background: white;
   padding: 20px;
+  border-radius: 12px;
+  font-weight: 600;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
 }
 
+/* =========================
+   PRICING
+========================= */
 .pricing {
-  display: flex;
-  gap: 20px;
-  padding: 40px;
+  max-width: 900px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
 }
 
 .card {
   background: white;
-  padding: 20px;
-  border-radius: 8px;
-  flex: 1;
+  padding: 30px;
+  border-radius: 14px;
   text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+}
+
+.card h2 {
+  margin-bottom: 10px;
+}
+
+.card p {
+  margin: 8px 0;
+  font-size: 18px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+footer {
+  background: #0f172a;
+  color: #cbd5f5;
+  text-align: center;
+  padding: 25px;
+  font-size: 14px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 600px) {
+  .hero h1 {
+    font-size: 32px;
+  }
+
+  .section h2 {
+    font-size: 26px;
+  }
 }
