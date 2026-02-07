@@ -1,87 +1,137 @@
+# ===============================
+# IMPORTS & SETUP
+# ===============================
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
-import json, uuid, re, os
 from openai import OpenAI
 from dotenv import load_dotenv
 
+import json
+import uuid
+import re
+import os
+
 load_dotenv()
 
+# ===============================
+# APP INITIALIZATION
+# ===============================
 app = Flask(__name__)
 CORS(app)
 
-ai = OpenAI()
+ai_client = OpenAI()
 
+# ===============================
+# FILE PATHS
+# ===============================
 CLIENT_FILE = "clients.json"
 LEADS_FILE = "leads.json"
 
+# ===============================
+# UTILITIES
+# ===============================
 def load_json(path, default):
+    """Safely load JSON file"""
     try:
-        with open(path) as f:
+        with open(path, "r") as f:
             return json.load(f)
-    except:
+    except Exception:
         return default
 
+
 def save_json(path, data):
+    """Save JSON file with formatting"""
     with open(path, "w") as f:
         json.dump(data, f, indent=2)
 
+
+# ===============================
+# AI RESPONSE
+# ===============================
 def ai_reply(message, business):
-    res = ai.chat.completions.create(
+    """
+    Generate AI response based on client's business configuration
+    """
+    response = ai_client.chat.completions.create(
         model="gpt-4o-mini",
         messages=[
             {
                 "role": "system",
                 "content": f"""
-You are a business chatbot.
+You are an AI business chatbot.
 
-Industry: {business.get('industry')}
-Services: {business.get('services')}
-Pricing: {business.get('pricing')}
-Tone: {business.get('tone')}
+Industry: {business.get("industry")}
+Services: {business.get("services")}
+Pricing: {business.get("pricing")}
+Tone: {business.get("tone")}
 
-Goal: convert visitors into leads.
+Goal:
+- Answer clearly
+- Be professional
+- Convert visitors into leads
 """
             },
-            {"role": "user", "content": message}
+            {
+                "role": "user",
+                "content": message
+            }
         ],
         max_tokens=200
     )
-    return res.choices[0].message.content.strip()
+    return response.choices[0].message.content.strip()
 
-# ---------------- PAGES ----------------
-
+# ===============================
+# PUBLIC PAGES
+# ===============================
 @app.route("/")
 def home():
     return render_template("index.html")
+
 
 @app.route("/demo")
 def demo():
     return render_template("demo.html")
 
+
 @app.route("/pricing")
 def pricing():
     return render_template("pricing.html")
+
 
 @app.route("/signup")
 def signup():
     return render_template("signup.html")
 
+
 @app.route("/login")
 def login():
     return render_template("login.html")
 
-# ---------------- CLIENT ----------------
+@app.route("/client/login", methods=["POST"])
+def client_login():
+    data = request.json
+    clients = load_json(CLIENT_FILE, {})
 
+    for cid, c in clients.items():
+        if c["email"] == data["email"] and c["password"] == data["password"]:
+            return jsonify({"success": True, "client_id": cid})
+
+    return jsonify({"success": False}), 401
+
+# ===============================
+# CLIENT SIGNUP
+# ===============================
 @app.route("/client/signup", methods=["POST"])
 def client_signup():
-    data = request.json
-    cid = str(uuid.uuid4())[:8]
+    data = request.get_json()
 
+    client_id = str(uuid.uuid4())[:8]
     clients = load_json(CLIENT_FILE, {})
-    clients[cid] = {
-        "name": data["name"],
-        "email": data["email"],
-        "password": data["password"],
+
+    clients[client_id] = {
+        "name": data.get("name"),
+        "email": data.get("email"),
+        "password": data.get("password"),
         "business": {
             "industry": "",
             "services": "",
@@ -91,31 +141,52 @@ def client_signup():
     }
 
     save_json(CLIENT_FILE, clients)
-    return jsonify({"success": True, "client_id": cid})
 
+    return jsonify({
+        "success": True,
+        "client_id": client_id
+    })
+
+
+# ===============================
+# CHATBOT API
+# ===============================
 @app.route("/chat", methods=["POST"])
 def chat():
-    data = request.json
-    msg = data["message"]
-    client_id = data["client_id"]
+    data = request.get_json()
+
+    message = data.get("message", "")
+    client_id = data.get("client_id")
 
     clients = load_json(CLIENT_FILE, {})
-    if client_id not in clients:
-        return jsonify({"reply": "Invalid client"})
 
-    email = re.search(r"\S+@\S+\.\S+", msg)
-    if email:
+    if client_id not in clients:
+        return jsonify({"reply": "Invalid client"}), 400
+
+    # ---- Email detection (lead capture)
+    email_match = re.search(r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}", message)
+    if email_match:
         leads = load_json(LEADS_FILE, [])
         leads.append({
-            "email": email.group(),
+            "email": email_match.group(),
             "client_id": client_id
         })
         save_json(LEADS_FILE, leads)
-        return jsonify({"reply": "Thanks! We’ll contact you soon 📧"})
 
-    reply = ai_reply(msg, clients[client_id]["business"])
+        return jsonify({
+            "reply": "Thanks! Our team will contact you soon 📧"
+        })
+
+    # ---- AI response
+    business = clients[client_id]["business"]
+    reply = ai_reply(message, business)
+
     return jsonify({"reply": reply})
 
+
+# ===============================
+# SERVER START
+# ===============================
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))
     app.run(host="0.0.0.0", port=port)

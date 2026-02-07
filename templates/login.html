@@ -1,32 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Client Login</title>
-
-    <!-- CSS -->
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='style.css') }}">
+  <title>Login</title>
+  <link rel="stylesheet" href="/static/css/site.css">
 </head>
 <body>
 
-<h2>Client Login</h2>
+<h1>Login</h1>
 
-<div id="login">
-    <input id="email" placeholder="Email"><br><br>
-    <input id="password" type="password" placeholder="Password"><br><br>
-    <button onclick="login()">Login</button>
-    <p id="login-msg"></p>
+<div class="card">
+  <input id="email" placeholder="Email"><br><br>
+  <input id="password" type="password" placeholder="Password"><br><br>
+  <button onclick="login()">Login</button>
 </div>
 
-<div id="dashboard" style="display:none;">
-    <h3 id="welcome"></h3>
-    <button onclick="loadLeads()">Load Leads</button>
-    <ul id="leads"></ul>
-</div>
+<script>
+async function login() {
+  const res = await fetch("/client/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      email: email.value,
+      password: password.value
+    })
+  });
 
-<!-- JS -->
-<script src="{{ url_for('static', filename='chatbot.js') }}"></script>
+  const data = await res.json();
+  if (data.success) {
+    localStorage.setItem("client_id", data.client_id);
+    window.location.href = "/dashboard";
+  } else {
+    alert("Invalid login");
+  }
+}
+</script>
 
 </body>
 </html>

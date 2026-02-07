@@ -2,22 +2,40 @@
 <html>
 <head>
   <title>Sign Up</title>
-  <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="/static/css/site.css">
 </head>
 <body>
 
-<h2 style="text-align:center;margin-top:50px;">Create Account</h2>
+<h1>Create Account</h1>
 
-<div style="max-width:350px;margin:auto;">
-  <input id="name" placeholder="Business Name" style="width:100%;padding:10px;margin-bottom:10px;">
-  <input id="email" placeholder="Email" style="width:100%;padding:10px;margin-bottom:10px;">
-  <input id="password" type="password" placeholder="Password" style="width:100%;padding:10px;">
-  <button onclick="signup()" class="btn primary" style="width:100%;margin-top:10px;">
-    Create Account
-  </button>
-  <p id="msg"></p>
+<div class="card">
+  <input id="name" placeholder="Business Name"><br><br>
+  <input id="email" placeholder="Email"><br><br>
+  <input id="password" type="password" placeholder="Password"><br><br>
+  <button onclick="signup()">Create Account</button>
 </div>
 
-<script src="/static/dashboard.js"></script>
+<script>
+async function signup() {
+  const res = await fetch("/client/signup", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      name: name.value,
+      email: email.value,
+      password: password.value
+    })
+  });
+
+  const data = await res.json();
+  if (data.success) {
+    localStorage.setItem("client_id", data.client_id);
+    window.location.href = "/dashboard";
+  } else {
+    alert("Signup failed");
+  }
+}
+</script>
+
 </body>
 </html>

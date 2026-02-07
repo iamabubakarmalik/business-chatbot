@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="/static/css/site.css">
+</head>
+<body>
+
+<h1>Client Dashboard</h1>
+
+<p><b>Your Client ID:</b></p>
+<code id="cid"></code>
+
+<h3>Embed this on your website</h3>
+
+<textarea rows="6" style="width:100%">
+<script>
+window.CHATBOT_CONFIG = {
+  client_id: "REPLACE_ME",
+  api_url: "https://business-chatbot-production.up.railway.app/chat"
+};
+</script>
+<script src="https://business-chatbot-production.up.railway.app/static/widget/widget.js"></script>
+</textarea>
+
+<script>
+const cid = localStorage.getItem("client_id");
+document.getElementById("cid").innerText = cid;
+</script>
+
+</body>
+</html>
