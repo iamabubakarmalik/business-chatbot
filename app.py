@@ -168,16 +168,18 @@ def admin_page():
 @app.route("/client/signup", methods=["POST"])
 def client_signup():
     data = request.get_json()
-    if not data:
-        return error("Invalid request")
-
-    client_id = str(uuid.uuid4())[:8]
     clients = load_json(CLIENT_FILE, {})
 
+    for c in clients.values():
+        if c["email"] == data["email"]:
+            return jsonify({"success": False, "message": "Email already exists"}), 400
+
+    client_id = str(uuid.uuid4())[:8]
+
     clients[client_id] = {
-        "name": data.get("name"),
-        "email": data.get("email"),
-        "password": generate_password_hash(data.get("password")),
+        "name": data["name"],
+        "email": data["email"],
+        "password": data["password"],
         "plan": "free",
         "business": {
             "industry": "",
@@ -188,7 +190,9 @@ def client_signup():
     }
 
     save_json(CLIENT_FILE, clients)
+
     return jsonify({"success": True, "client_id": client_id})
+
 
 @app.route("/client/login", methods=["POST"])
 def client_login():
@@ -289,6 +293,10 @@ def pricing():
 @app.route("/login")
 def login_page():
     return render_template("login.html")
+
+@app.route("/signup")
+def signup_page():
+    return render_template("signup.html")
 
 # ======================
 # RUN
