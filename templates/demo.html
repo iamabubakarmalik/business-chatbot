@@ -2,25 +2,31 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Live Demo – AI Chatbot</title>
+  <title>Chatbot Demo</title>
+
+  <!-- Your site styles (optional) -->
   <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="/static/site.css">
+
+  <!-- Chatbot widget CSS -->
+  <link rel="stylesheet" href="/static/chatbot-widget.css">
 </head>
+
 <body>
 
-<h1 style="text-align:center;margin-top:40px;">
-  Live Chatbot Demo
-</h1>
+  <h1>🤖 Chatbot Demo Page</h1>
+  <p>This page is using the embedded chatbot widget.</p>
 
-<p style="text-align:center;">
-  Try chatting below. This is exactly how it works on your website.
-</p>
+  <!-- 🔴 VERY IMPORTANT: CONFIG MUST COME FIRST -->
+  <script>
+    window.CHATBOT_CONFIG = {
+      client_id: "bb88c1de",     // 👈 apna REAL client_id
+      api_url: "http://127.0.0.1:8080/chat"
+    };
+  </script>
 
-<!-- DEMO CLIENT ID -->
-<script>
-  window.CHATBOT_CLIENT_ID = "demo";
-</script>
-
-<script src="/static/chatbot-widget.js"></script>
+  <!-- Chatbot widget JS (ALWAYS AT END, WITH DEFER) -->
+  <script src="/static/chatbot-widget.js" defer></script>
 
 </body>
 </html>

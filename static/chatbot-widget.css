@@ -7,7 +7,7 @@
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  font-size: 28px;
+  font-size: 26px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -22,18 +22,17 @@
   width: 320px;
   height: 420px;
   background: white;
-  border-radius: 12px;
+  border-radius: 10px;
   display: none;
   flex-direction: column;
-  box-shadow: 0 10px 40px rgba(0,0,0,.2);
+  box-shadow: 0 10px 30px rgba(0,0,0,.2);
   z-index: 9999;
 }
 
 #cb-header {
   background: #4f46e5;
   color: white;
-  padding: 12px;
-  font-weight: bold;
+  padding: 10px;
   text-align: center;
 }
 
@@ -41,20 +40,17 @@
   flex: 1;
   padding: 10px;
   overflow-y: auto;
-  font-size: 14px;
 }
 
 #cb-input {
   border: none;
   border-top: 1px solid #ddd;
   padding: 10px;
-  outline: none;
 }
 
 .me {
   text-align: right;
   margin: 6px;
-  color: #111;
 }
 
 .bot {
