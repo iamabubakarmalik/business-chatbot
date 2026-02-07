@@ -5,12 +5,12 @@
   width: 60px;
   height: 60px;
   background: #4f46e5;
-  color: #fff;
+  color: white;
   border-radius: 50%;
-  font-size: 26px;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 26px;
   cursor: pointer;
   z-index: 9999;
 }
@@ -21,11 +21,11 @@
   right: 20px;
   width: 320px;
   height: 420px;
-  background: #fff;
+  background: white;
   border-radius: 12px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
   display: none;
   flex-direction: column;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
   font-family: Arial, sans-serif;
   z-index: 9999;
 }
@@ -35,31 +35,31 @@
   color: white;
   padding: 12px;
   font-weight: bold;
-  border-radius: 12px 12px 0 0;
+  text-align: center;
 }
 
 #cb-messages {
   flex: 1;
   padding: 10px;
   overflow-y: auto;
-  font-size: 14px;
 }
 
 .cb-user {
   text-align: right;
-  margin: 6px 0;
+  margin-bottom: 8px;
   color: #333;
 }
 
 .cb-bot {
   text-align: left;
-  margin: 6px 0;
+  margin-bottom: 8px;
   color: #4f46e5;
 }
 
 #cb-input {
   border: none;
   border-top: 1px solid #ddd;
-  padding: 10px;
+  padding: 12px;
+  font-size: 14px;
   outline: none;
 }

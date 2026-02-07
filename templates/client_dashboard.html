@@ -1,51 +1,63 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Client Dashboard</title>
-    <style>
-        body {
-            font-family: Arial;
-            background: #f5f5f5;
-        }
-        .box {
-            max-width: 500px;
-            margin: 40px auto;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-        }
-        input, textarea, select, button {
-            width: 100%;
-            margin: 8px 0;
-            padding: 10px;
-        }
-        button {
-            background: black;
-            color: white;
-            cursor: pointer;
-        }
-    </style>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
 
-<div class="box">
-    <h2>Business Settings</h2>
+<header style="background:#111827;color:white;padding:15px;">
+  <span id="welcome"></span>
+  <button onclick="logout()" style="float:right;">Logout</button>
+</header>
 
-    <input id="industry" placeholder="Industry (e.g. Real Estate)">
-    <textarea id="services" placeholder="Your services"></textarea>
-    <input id="pricing" placeholder="Pricing (e.g. $29/month)">
-    
-    <select id="tone">
-        <option value="professional">Professional</option>
-        <option value="friendly">Friendly</option>
-        <option value="sales">Sales-focused</option>
-    </select>
+<div style="padding:30px;max-width:900px;margin:auto;">
 
-    <button onclick="saveSettings()">Save Settings</button>
+  <h2>Business Settings</h2>
 
-    <p id="msg"></p>
+  <input id="industry" placeholder="Industry (e.g. Clinic, Agency)" style="width:100%;padding:10px;">
+  <textarea id="services" placeholder="Services" style="width:100%;padding:10px;margin-top:10px;"></textarea>
+  <input id="pricing" placeholder="Pricing" style="width:100%;padding:10px;margin-top:10px;">
+
+  <select id="tone" style="width:100%;padding:10px;margin-top:10px;">
+    <option value="professional">Professional</option>
+    <option value="friendly">Friendly</option>
+    <option value="sales">Sales-focused</option>
+  </select>
+
+  <button onclick="saveSettings()" class="btn primary" style="margin-top:10px;">
+    Save Settings
+  </button>
+
+  <p id="save-msg"></p>
+
+  <hr style="margin:40px 0;">
+
+  <h2>Embed Chatbot</h2>
+
+  <h3>Embed Chatbot</h3>
+
+<textarea style="width:100%;height:120px;" readonly>
+<script>
+  window.CHATBOT_CLIENT_ID = "{{ client_id }}";
+</script>
+<script src="https://yourdomain.com/static/chatbot-widget.js"></script>
+</textarea>
+
+<p>Copy & paste this code before </body> on your website.</p>
+
+
+  <pre id="embed"
+style="background:#111;color:#0f0;padding:15px;border-radius:6px;"></pre>
+
+  <hr style="margin:40px 0;">
+
+  <h2>Leads</h2>
+  <ul id="leads"></ul>
+
 </div>
 
 <script src="/static/dashboard.js"></script>
 </body>
 </html>
+
