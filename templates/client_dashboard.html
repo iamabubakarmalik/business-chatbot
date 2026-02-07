@@ -2,24 +2,50 @@
 <html>
 <head>
     <title>Client Dashboard</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f5f5f5;
+        }
+        .box {
+            max-width: 500px;
+            margin: 40px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        input, textarea, select, button {
+            width: 100%;
+            margin: 8px 0;
+            padding: 10px;
+        }
+        button {
+            background: black;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <h2>Client Dashboard</h2>
 
-    <div id="login">
-        <h3>Client Login</h3>
-        <input id="email" placeholder="Email"><br><br>
-        <input id="password" type="password" placeholder="Password"><br><br>
-        <button onclick="login()">Login</button>
-        <p id="login-msg"></p>
-    </div>
+<div class="box">
+    <h2>Business Settings</h2>
 
-    <div id="dashboard" style="display:none;">
-        <h3 id="welcome"></h3>
-        <button onclick="loadLeads()">Load My Leads</button>
-        <ul id="leads"></ul>
-    </div>
+    <input id="industry" placeholder="Industry (e.g. Real Estate)">
+    <textarea id="services" placeholder="Your services"></textarea>
+    <input id="pricing" placeholder="Pricing (e.g. $29/month)">
+    
+    <select id="tone">
+        <option value="professional">Professional</option>
+        <option value="friendly">Friendly</option>
+        <option value="sales">Sales-focused</option>
+    </select>
 
-    <script src="/static/client.js"></script>
+    <button onclick="saveSettings()">Save Settings</button>
+
+    <p id="msg"></p>
+</div>
+
+<script src="/static/dashboard.js"></script>
 </body>
 </html>

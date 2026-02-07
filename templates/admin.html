@@ -1,108 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Admin Dashboard</title>
-    <style>
-        body {
-            font-family: Arial;
-            background: #f4f4f4;
-        }
-        .box {
-            width: 350px;
-            margin: 50px auto;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-        }
-        table {
-            width: 90%;
-            margin: 30px auto;
-            border-collapse: collapse;
-            background: white;
-        }
-        th, td {
-            padding: 10px;
-            border: 1px solid #ddd;
-            text-align: left;
-        }
-        th {
-            background: #333;
-            color: white;
-        }
-        .hidden {
-            display: none;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <title>AI Business Chatbot</title>
+  <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
 
-<!-- LOGIN BOX -->
-<div class="box" id="loginBox">
-    <h3>Admin Login</h3>
+<header class="hero">
+  <h1>AI Chatbot that converts visitors into customers</h1>
+  <p>Deploy on any website in 2 minutes. No coding required.</p>
+  <div class="buttons">
+    <a href="/demo" class="btn primary">Live Demo</a>
+    <a href="/pricing" class="btn">Pricing</a>
+  </div>
+</header>
 
-    <input id="username" placeholder="Username">
-    <input id="password" type="password" placeholder="Password">
+<section class="features">
+  <div>💬 24/7 AI Chat Support</div>
+  <div>📧 Automatic Lead Collection</div>
+  <div>🌍 Works Worldwide</div>
+  <div>⚡ Easy Website Embed</div>
+</section>
 
-    <button onclick="login()">Login</button>
+<section class="cta">
+  <h2>Start converting visitors today</h2>
+  <a href="/demo" class="btn primary">Try Demo</a>
+</section>
 
-    <div id="loginResult"></div>
-</div>
-
-<!-- DASHBOARD -->
-<div id="dashboard" class="hidden">
-    <h2 style="text-align:center;">📊 Leads Dashboard</h2>
-
-    <table id="leadsTable">
-        <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Client ID</th>
-        </tr>
-    </table>
-</div>
-
-<script>
-const API = "http://127.0.0.1:5000";
-
-function login() {
-    fetch(API + "/admin/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            username: username.value,
-            password: password.value
-        })
-    })
-    .then(res => res.json())
-    .then(data => {
-        if (data.success) {
-            localStorage.setItem("admin_token", data.token);
-            loginBox.classList.add("hidden");
-            dashboard.classList.remove("hidden");
-            loadLeads();
-        } else {
-            loginResult.innerHTML = "❌ Wrong credentials";
-        }
-    });
-}
-
-function loadLeads() {
-    fetch(API + "/admin/leads", {
-        headers: {
-            "Authorization": localStorage.getItem("admin_token")
-        }
-    })
-    .then(res => res.json())
-    .then(leads => {
-        leads.forEach(lead => {
-            let row = leadsTable.insertRow();
-            row.insertCell(0).innerText = lead.name;
-            row.insertCell(1).innerText = lead.email;
-            row.insertCell(2).innerText = lead.client_id;
-        });
-    });
-}
-</script>
+<footer>
+  © 2026 AI Business Chatbot
+</footer>
 
 </body>
 </html>
