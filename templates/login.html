@@ -1,6 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Client Login</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
 <body>
-<h1>LOGIN PAGE WORKING ✅</h1>
+
+<h2>Client Login</h2>
+
+<div id="login">
+    <input id="email" placeholder="Email"><br><br>
+    <input id="password" type="password" placeholder="Password"><br><br>
+    <button onclick="login()">Login</button>
+    <p id="login-msg"></p>
+</div>
+
+<div id="dashboard" style="display:none;">
+    <h3 id="welcome"></h3>
+    <button onclick="loadLeads()">Load Leads</button>
+    <ul id="leads"></ul>
+</div>
+
+<!-- JS -->
+<script src="{{ url_for('static', filename='chatbot.js') }}"></script>
+
 </body>
 </html>
