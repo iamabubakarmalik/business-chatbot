@@ -10,5 +10,17 @@
     "email": "owner@test.com",
     "password": "12345",
     "plan": "free"
+  },
+  "demo": {
+    "name": "Demo Business",
+    "email": "",
+    "password": "",
+    "plan": "demo",
+    "business": {
+      "industry": "SaaS",
+      "services": "AI Chatbot Demo",
+      "pricing": "Free demo",
+      "tone": "friendly"
+    }
   }
 }
