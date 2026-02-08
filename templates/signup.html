@@ -2,40 +2,34 @@
 <html>
 <head>
   <title>Sign Up</title>
-  <link rel="stylesheet" href="/static/css/site.css">
 </head>
 <body>
+  <h2>Create Account</h2>
 
-<h1>Create Account</h1>
-
-<div class="card">
-  <input id="name" placeholder="Business Name"><br><br>
+  <input id="name" placeholder="Business name"><br><br>
   <input id="email" placeholder="Email"><br><br>
   <input id="password" type="password" placeholder="Password"><br><br>
-  <button onclick="signup()">Create Account</button>
-</div>
 
-<script>
-async function signup() {
-  const res = await fetch("/client/signup", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      name: name.value,
-      email: email.value,
-      password: password.value
-    })
-  });
+  <button onclick="signup()">Sign Up</button>
+  <p id="msg"></p>
 
-  const data = await res.json();
-  if (data.success) {
-    localStorage.setItem("client_id", data.client_id);
-    window.location.href = "/dashboard";
-  } else {
-    alert("Signup failed");
-  }
-}
-</script>
-
+  <script>
+    function signup() {
+      fetch("/client/signup", {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({
+          name: name.value,
+          email: email.value,
+          password: password.value
+        })
+      })
+      .then(r => r.json())
+      .then(d => {
+        localStorage.setItem("client_id", d.client_id);
+        window.location.href = "/dashboard";
+      });
+    }
+  </script>
 </body>
 </html>

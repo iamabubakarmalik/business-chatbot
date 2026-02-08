@@ -1,32 +1,236 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Dashboard</title>
-  <link rel="stylesheet" href="/static/css/site.css">
+  <meta charset="UTF-8" />
+  <title>Client Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Basic styling -->
+  <link rel="stylesheet" href="/static/style.css" />
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #111827;
+      color: white;
+      padding: 16px 24px;
+      font-size: 18px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 30px auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 20px;
+    }
+
+    label {
+      display: block;
+      margin-top: 12px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    button {
+      margin-top: 16px;
+      padding: 12px;
+      background: #4f46e5;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    pre {
+      background: #0f172a;
+      color: #e5e7eb;
+      padding: 16px;
+      border-radius: 6px;
+      overflow-x: auto;
+      font-size: 13px;
+    }
+
+    .small {
+      font-size: 13px;
+      color: #555;
+      margin-top: 8px;
+    }
+
+    .full {
+      grid-column: 1 / -1;
+    }
+  </style>
 </head>
 <body>
 
-<h1>Client Dashboard</h1>
+<header>
+  🤖 AI Chatbot Dashboard
+</header>
 
-<p><b>Your Client ID:</b></p>
-<code id="cid"></code>
+<div class="container">
 
-<h3>Embed this on your website</h3>
+  <!-- BUSINESS INFO -->
+  <div class="card">
+    <h2>1️⃣ Business Information</h2>
 
-<textarea rows="6" style="width:100%">
+    <label>Business Name</label>
+    <input id="businessName" placeholder="e.g. ABC Dental Clinic" />
+
+    <label>Industry</label>
+    <select id="industry">
+      <option value="">Select industry</option>
+      <option>Healthcare</option>
+      <option>Ecommerce</option>
+      <option>Education</option>
+      <option>Real Estate</option>
+      <option>Agency</option>
+      <option>Other</option>
+    </select>
+
+    <label>Services</label>
+    <textarea id="services" placeholder="e.g. Teeth whitening, implants, checkups"></textarea>
+
+    <label>Chatbot Tone</label>
+    <select id="tone">
+      <option value="professional">Professional</option>
+      <option value="friendly">Friendly</option>
+      <option value="sales">Sales-focused</option>
+    </select>
+
+    <button onclick="saveSettings()">Save Settings</button>
+    <div id="saveMsg" class="small"></div>
+  </div>
+
+  <!-- EMBED CODE -->
+  <div class="card">
+    <h2>2️⃣ Embed Chatbot on Your Website</h2>
+
+    <p class="small">
+      Copy this code and paste it before <b>&lt;/body&gt;</b> on your website.
+    </p>
+
+    <pre id="embedCode">
+&lt;script
+  src="https://YOUR-DOMAIN.com/static/chatbot-widget.js"
+  data-client-id="CLIENT_ID_HERE"&gt;
+&lt;/script&gt;
+    </pre>
+
+    <button onclick="copyEmbed()">📋 Copy Embed Code</button>
+
+    <p class="small">
+      Don’t have a website? You can still use our demo page.
+    </p>
+  </div>
+
+  <!-- LEADS -->
+  <div class="card full">
+    <h2>3️⃣ Leads Collected</h2>
+
+    <ul id="leads">
+      <li class="small">No leads yet</li>
+    </ul>
+
+    <button onclick="loadLeads()">Refresh Leads</button>
+  </div>
+
+</div>
+
 <script>
-window.CHATBOT_CONFIG = {
-  client_id: "REPLACE_ME",
-  api_url: "https://business-chatbot-production.up.railway.app/chat"
-};
-</script>
-<script src="https://business-chatbot-production.up.railway.app/static/widget/widget.js"></script>
-</textarea>
+  const CLIENT_ID = localStorage.getItem("client_id") || "demo";
 
-<script>
-const cid = localStorage.getItem("client_id");
-document.getElementById("cid").innerText = cid;
-</script>
+  document.getElementById("embedCode").innerText = `
+<script
+  src="https://YOUR-DOMAIN.com/static/chatbot-widget.js"
+  data-client-id="${CLIENT_ID}">
+<\/script>
+  `.trim();
 
-</body>
-</html>
+  function copyEmbed() {
+    navigator.clipboard.writeText(
+      document.getElementById("embedCode").innerText
+    );
+    alert("Embed code copied!");
+  }
+
+  function saveSettings() {
+    fetch("/client/settings", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        client_id: CLIENT_ID,
+        business: {
+          industry: document.getElementById("industry").value,
+          services: document.getElementById("services").value,
+          tone: document.getElementById("tone").value,
+          pricing: ""
+        }
+      })
+    })
+    .then(res => res.json())
+    .then(() => {
+      document.getElementById("saveMsg").innerText = "Saved successfully ✅";
+    });
+  }
+
+  function loadLeads() {
+    fetch(`/client/leads/${CLIENT_ID}`, {
+      headers: { "Client-ID": CLIENT_ID }
+    })
+    .then(res => res.json())
+    .then(data => {
+      const ul = document.getElementById("leads");
+      ul.innerHTML = "";
+      if (data.length === 0) {
+        ul.innerHTML = "<li class='small'>No leads yet</li>";
+        return;
+      }
+      data.forEach(l => {
+        const li = document.createElement("li");
+        li.innerText = `${l.name || "Visitor"} – ${l.email}`;
+        ul.appendChild(li);
+      });
+    });
+  }
+
+  loadLeads();
+  </script>

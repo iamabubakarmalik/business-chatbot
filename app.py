@@ -181,6 +181,38 @@ def chat():
             "reply": "Thanks! Our team will contact you soon 📧"
         })
 
+
+ADMIN_USERNAME = "admin"
+ADMIN_PASSWORD = "12345"
+ADMIN_TOKEN = "admin-secret"
+
+@app.route("/admin")
+def admin_login_page():
+    return render_template("admin_login.html")
+
+@app.route("/admin/dashboard")
+def admin_dashboard():
+    return render_template("admin_dashboard.html")
+
+@app.route("/admin/login", methods=["POST"])
+def admin_login():
+    data = request.json
+    if data["username"] == ADMIN_USERNAME and data["password"] == ADMIN_PASSWORD:
+        return jsonify({"success": True, "token": ADMIN_TOKEN})
+    return jsonify({"success": False}), 401
+
+@app.route("/admin/clients")
+def admin_clients():
+    if request.headers.get("Authorization") != ADMIN_TOKEN:
+        return jsonify({"error": "Unauthorized"}), 403
+    return jsonify(load_json(CLIENT_FILE, {}))
+
+@app.route("/admin/leads")
+def admin_leads():
+    if request.headers.get("Authorization") != ADMIN_TOKEN:
+        return jsonify({"error": "Unauthorized"}), 403
+    return jsonify(load_json(LEADS_FILE, []))
+
     # ---- AI response
     business = clients[client_id]["business"]
     reply = ai_reply(message, business)
