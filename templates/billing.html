@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Billing — OrveChat</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="dashboard-body">
+
+<header class="dash-header">
+  <div class="logo">OrveChat</div>
+  <div class="nav-right">
+    <span class="product-tag">An ORVE Solutions Product</span>
+    <button class="logout-btn">Logout</button>
+  </div>
+</header>
+
+<div class="dash-layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <a>Overview</a>
+    <a>Chatbot</a>
+    <a>Leads</a>
+    <a>Settings</a>
+    <a class="active">Billing</a>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="dash-main full-width">
+
+    <!-- Current Plan -->
+    <div class="dash-card full">
+      <h2>Current Plan</h2>
+      <div class="current-plan">
+        <div>
+          <h3>Starter Plan</h3>
+          <p class="small">You are currently on the Starter plan.</p>
+        </div>
+        <button class="btn-secondary">
+          Manage Billing
+        </button>
+      </div>
+    </div>
+
+    <!-- Pricing Plans -->
+    <div class="pricing-grid">
+
+      <!-- Starter -->
+      <div class="pricing-card">
+        <h3>Starter</h3>
+        <div class="price">$19<span>/mo</span></div>
+        <ul>
+          <li>1 chatbot</li>
+          <li>Up to 500 chats/month</li>
+          <li>Basic lead capture</li>
+          <li>Email support</li>
+        </ul>
+        <button class="btn-primary">Choose Plan</button>
+      </div>
+
+      <!-- Pro -->
+      <div class="pricing-card popular">
+        <div class="badge">Most Popular</div>
+        <h3>Pro</h3>
+        <div class="price">$49<span>/mo</span></div>
+        <ul>
+          <li>3 chatbots</li>
+          <li>Up to 5,000 chats/month</li>
+          <li>Advanced AI responses</li>
+          <li>Priority support</li>
+        </ul>
+        <button class="btn-primary">Upgrade to Pro</button>
+      </div>
+
+      <!-- Business -->
+      <div class="pricing-card">
+        <h3>Business</h3>
+        <div class="price">$99<span>/mo</span></div>
+        <ul>
+          <li>Unlimited chatbots</li>
+          <li>Unlimited chats</li>
+          <li>Custom AI training</li>
+          <li>Dedicated support</li>
+        </ul>
+        <button class="btn-primary">Choose Plan</button>
+      </div>
+
+    </div>
+
+    <!-- Billing Info -->
+    <div class="dash-card full">
+      <h2>Billing Information</h2>
+      <p class="small">
+        Your invoices and payment methods will appear here after integration.
+      </p>
+    </div>
+
+  </main>
+
+</div>
+
+</body>
+</html>

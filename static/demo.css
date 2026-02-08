@@ -1,0 +1,98 @@
+/* Demo Page Styling */
+
+.demo-hero {
+  background: linear-gradient(180deg, #0B132B, #111936);
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  padding: 80px 20px;
+}
+
+.demo-container {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.demo-text h1 {
+  font-size: 44px;
+  color: #FFFFFF;
+  margin-bottom: 20px;
+}
+
+.demo-text p {
+  color: #B6C2E2;
+  font-size: 18px;
+  margin-bottom: 25px;
+  line-height: 1.6;
+}
+
+.demo-points {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 30px;
+}
+
+.demo-points li {
+  margin-bottom: 12px;
+  color: #B6C2E2;
+  font-size: 16px;
+}
+
+.demo-btn {
+  display: inline-block;
+  background: #3FA9F5;
+  color: #0B132B;
+  padding: 14px 28px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.25s;
+}
+
+.demo-btn:hover {
+  background: #5EE6FF;
+}
+
+/* Visual card */
+.demo-visual {
+  display: flex;
+  justify-content: center;
+}
+
+.demo-card {
+  background: #111936;
+  border: 1px solid #1E2A5A;
+  padding: 30px;
+  border-radius: 16px;
+  text-align: center;
+  color: #B6C2E2;
+  max-width: 320px;
+  box-shadow: 0 0 40px rgba(94,230,255,0.08);
+}
+
+.demo-card h3 {
+  color: white;
+  margin-bottom: 10px;
+}
+
+.demo-arrow {
+  font-size: 40px;
+  margin-top: 20px;
+  color: #5EE6FF;
+}
+
+/* Mobile */
+@media (max-width: 900px) {
+  .demo-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .demo-text h1 {
+    font-size: 32px;
+  }
+}

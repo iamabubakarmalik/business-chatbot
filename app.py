@@ -1,7 +1,7 @@
 # =====================================
 # IMPORTS & CONFIG
 # =====================================
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, redirect, url_for
 from flask_cors import CORS
 from openai import OpenAI
 from dotenv import load_dotenv
@@ -115,9 +115,24 @@ def signup():
 def login():
     return render_template("login.html")
 
+# =====================================
+# DASHBOARD & APP PAGES
+# =====================================
 @app.route("/dashboard")
 def dashboard():
     return render_template("dashboard.html")
+
+@app.route("/onboarding")
+def onboarding():
+    return render_template("onboarding.html")
+
+@app.route("/leads")
+def leads():
+    return render_template("leads.html")
+
+@app.route("/chatbot")
+def chatbot():
+    return render_template("chatbot.html")
 
 # =====================================
 # CLIENT AUTH
@@ -156,7 +171,29 @@ def client_login():
     return jsonify({"success": False}), 401
 
 # =====================================
-# CHATBOT API (⭐ MAIN ⭐)
+# SAVE BUSINESS DATA (ONBOARDING)
+# =====================================
+@app.route("/client/save-business", methods=["POST"])
+def save_business():
+    data = request.json
+    client_id = data.get("client_id")
+
+    clients = load_json(CLIENT_FILE, {})
+    if client_id not in clients:
+        return jsonify({"success": False}), 404
+
+    clients[client_id]["business"] = {
+        "industry": data.get("industry", ""),
+        "services": data.get("services", ""),
+        "pricing": data.get("pricing", ""),
+        "tone": data.get("tone", "professional")
+    }
+
+    save_json(CLIENT_FILE, clients)
+    return jsonify({"success": True})
+
+# =====================================
+# CHATBOT API
 # =====================================
 @app.route("/chat", methods=["POST"])
 def chat():
@@ -191,6 +228,15 @@ def chat():
 
     reply = ai_reply(message, client["business"])
     return jsonify({"reply": reply})
+
+# =====================================
+# GET LEADS FOR CLIENT
+# =====================================
+@app.route("/client/leads/<client_id>")
+def get_client_leads(client_id):
+    leads = load_json(LEADS_FILE, [])
+    client_leads = [l for l in leads if l["client_id"] == client_id]
+    return jsonify(client_leads)
 
 # =====================================
 # ADMIN (BASIC)

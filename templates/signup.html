@@ -1,35 +1,79 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Sign Up</title>
+  <meta charset="UTF-8" />
+  <title>Sign Up — OrveChat</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body>
-  <h2>Create Account</h2>
+<body class="auth-body">
 
-  <input id="name" placeholder="Business name"><br><br>
-  <input id="email" placeholder="Email"><br><br>
-  <input id="password" type="password" placeholder="Password"><br><br>
+<div class="auth-container">
 
-  <button onclick="signup()">Sign Up</button>
-  <p id="msg"></p>
+  <!-- Left Side Branding -->
+  <div class="auth-left">
+    <h1>OrveChat</h1>
+    <p class="auth-tagline">
+      An ORVE Solutions Product
+    </p>
 
-  <script>
-    function signup() {
-      fetch("/client/signup", {
-        method: "POST",
-        headers: {"Content-Type":"application/json"},
-        body: JSON.stringify({
-          name: name.value,
-          email: email.value,
-          password: password.value
-        })
-      })
-      .then(r => r.json())
-      .then(d => {
-        localStorage.setItem("client_id", d.client_id);
-        window.location.href = "/dashboard";
-      });
-    }
-  </script>
+    <h2>
+      Launch your AI chatbot in minutes.
+    </h2>
+
+    <p class="auth-desc">
+      Capture leads, answer customers instantly,
+      and automate your website with enterprise-grade AI.
+    </p>
+  </div>
+
+  <!-- Right Side Form -->
+  <div class="auth-right">
+
+    <div class="auth-card">
+      <h2>Create your account</h2>
+
+      <!-- Google Login -->
+      <button class="google-btn">
+        <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google">
+        Continue with Google
+      </button>
+
+      <div class="divider">
+        <span>or</span>
+      </div>
+
+      <!-- Signup Form -->
+      <form>
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" placeholder="John Smith" />
+        </div>
+
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="you@company.com" />
+        </div>
+
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" placeholder="••••••••" />
+        </div>
+
+        <button type="submit" class="btn-primary full">
+          Create Account
+        </button>
+      </form>
+
+      <p class="auth-footer">
+        Already have an account?
+        <a href="#">Log in</a>
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
+
 </body>
 </html>

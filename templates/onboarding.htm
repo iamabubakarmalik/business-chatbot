@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Setup Your Chatbot — OrveChat</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="dashboard-body">
+
+<div class="onboard-container">
+
+  <div class="onboard-card">
+
+    <!-- Step indicator -->
+    <div class="onboard-steps">
+      <span class="active">1</span>
+      <span>2</span>
+      <span>3</span>
+      <span>4</span>
+    </div>
+
+    <!-- Step content -->
+    <div id="stepContent">
+
+      <h2>Welcome to OrveChat</h2>
+      <p class="small">
+        Let’s set up your AI chatbot in under 2 minutes.
+      </p>
+
+      <button class="btn-primary" onclick="nextStep()">
+        Get Started
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+let step = 1;
+
+function nextStep() {
+  step++;
+
+  const content = document.getElementById("stepContent");
+
+  if (step === 2) {
+    content.innerHTML = `
+      <h2>Business Information</h2>
+
+      <label>Business Name</label>
+      <input placeholder="ABC Dental Clinic">
+
+      <label>Industry</label>
+      <select>
+        <option>Healthcare</option>
+        <option>Ecommerce</option>
+        <option>Education</option>
+        <option>Real Estate</option>
+        <option>Agency</option>
+      </select>
+
+      <label>Services</label>
+      <textarea placeholder="Describe your services"></textarea>
+
+      <button class="btn-primary" onclick="nextStep()">
+        Continue
+      </button>
+    `;
+  }
+
+  else if (step === 3) {
+    content.innerHTML = `
+      <h2>Chatbot Personality</h2>
+
+      <label>Tone</label>
+      <select>
+        <option>Professional</option>
+        <option>Friendly</option>
+        <option>Sales-focused</option>
+      </select>
+
+      <label>Welcome Message</label>
+      <textarea>
+Hello! How can I help you today?
+      </textarea>
+
+      <button class="btn-primary" onclick="nextStep()">
+        Continue
+      </button>
+    `;
+  }
+
+  else if (step === 4) {
+    content.innerHTML = `
+      <h2>Test Your Chatbot</h2>
+
+      <div class="chat-preview">
+        <div class="chat-bubble bot">
+          Hello! How can I help you today?
+        </div>
+        <div class="chat-bubble user">
+          What are your prices?
+        </div>
+        <div class="chat-bubble bot">
+          I’d be happy to share pricing. Can I get your email?
+        </div>
+      </div>
+
+      <button class="btn-primary" onclick="nextStep()">
+        Install Chatbot
+      </button>
+    `;
+  }
+
+  else if (step === 5) {
+    content.innerHTML = `
+      <h2>Install on Your Website</h2>
+
+      <pre>
+&lt;script
+  src="https://yourdomain.com/chatbot.js"
+  data-client-id="CLIENT_ID"&gt;
+&lt;/script&gt;
+      </pre>
+
+      <button class="btn-primary" onclick="finishOnboarding()">
+        Go to Dashboard
+      </button>
+    `;
+  }
+}
+
+function finishOnboarding() {
+  window.location.href = "dashboard.html";
+}
+</script>
+
+</body>
+</html>

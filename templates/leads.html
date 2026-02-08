@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Leads — OrveChat</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="dashboard-body">
+
+<header class="dash-header">
+  <div class="logo">OrveChat</div>
+  <div class="nav-right">
+    <span class="product-tag">An ORVE Solutions Product</span>
+    <button class="logout-btn">Logout</button>
+  </div>
+</header>
+
+<div class="dash-layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <a>Overview</a>
+    <a>Chatbot</a>
+    <a class="active">Leads</a>
+    <a>Settings</a>
+    <a>Billing</a>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="dash-main full-width">
+
+    <div class="dash-card full">
+      <h2>Leads</h2>
+
+      <!-- Filters -->
+      <div class="leads-filters">
+        <input type="text" placeholder="Search by name or email" />
+        
+        <select>
+          <option>Status: All</option>
+          <option>New</option>
+          <option>Contacted</option>
+          <option>Closed</option>
+        </select>
+
+        <button class="btn-primary">Refresh</button>
+        <button class="btn-secondary">Export CSV</button>
+      </div>
+
+      <!-- Leads Table -->
+      <div class="table-wrapper">
+        <table class="leads-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Message</th>
+              <th>Date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="leadsTable">
+            <tr>
+              <td>John Smith</td>
+              <td>john@email.com</td>
+              <td>Interested in pricing</td>
+              <td>2026-02-08</td>
+              <td>
+                <span class="status new">New</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Sarah Khan</td>
+              <td>sarah@company.com</td>
+              <td>Wants demo</td>
+              <td>2026-02-07</td>
+              <td>
+                <span class="status contacted">Contacted</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+  </main>
+
+</div>
+
+</body>
+</html>

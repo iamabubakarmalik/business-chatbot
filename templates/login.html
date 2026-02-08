@@ -1,37 +1,83 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Login</title>
+  <meta charset="UTF-8" />
+  <title>Login — OrveChat</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body>
-  <h2>Login</h2>
+<body class="auth-body">
 
-  <input id="email" placeholder="Email"><br><br>
-  <input id="password" type="password" placeholder="Password"><br><br>
+<div class="auth-container">
 
-  <button onclick="login()">Login</button>
-  <p id="msg"></p>
+  <!-- Left Side Branding -->
+  <div class="auth-left">
+    <h1>OrveChat</h1>
+    <p class="auth-tagline">
+      An ORVE Solutions Product
+    </p>
 
-  <script>
-    function login() {
-      fetch("/client/login", {
-        method: "POST",
-        headers: {"Content-Type":"application/json"},
-        body: JSON.stringify({
-          email: email.value,
-          password: password.value
-        })
-      })
-      .then(r => r.json())
-      .then(d => {
-        if (!d.success) {
-          msg.innerText = "Invalid login";
-          return;
-        }
-        localStorage.setItem("client_id", d.client_id);
-        window.location.href = "/dashboard";
-      });
-    }
-  </script>
+    <h2>
+      Welcome back to smarter conversations.
+    </h2>
+
+    <p class="auth-desc">
+      Log in to manage your AI chatbot, track leads,
+      and automate your customer support.
+    </p>
+  </div>
+
+  <!-- Right Side Form -->
+  <div class="auth-right">
+
+    <div class="auth-card">
+      <h2>Log in to your account</h2>
+
+      <!-- Google Login -->
+      <button class="google-btn">
+        <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google">
+        Continue with Google
+      </button>
+
+      <div class="divider">
+        <span>or</span>
+      </div>
+
+      <!-- Login Form -->
+      <form>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="you@company.com" />
+        </div>
+
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" placeholder="••••••••" />
+        </div>
+
+        <div class="form-options">
+          <label class="remember">
+            <input type="checkbox" />
+            Remember me
+          </label>
+
+          <a href="#" class="forgot">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="btn-primary full">
+          Log In
+        </button>
+      </form>
+
+      <p class="auth-footer">
+        Don’t have an account?
+        <a href="signup.html">Sign up</a>
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
+
 </body>
 </html>

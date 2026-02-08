@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Chatbot Setup — OrveChat</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="dashboard-body">
+
+<header class="dash-header">
+  <div class="logo">OrveChat</div>
+  <div class="nav-right">
+    <span class="product-tag">An ORVE Solutions Product</span>
+    <button class="logout-btn">Logout</button>
+  </div>
+</header>
+
+<div class="dash-layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <a>Overview</a>
+    <a class="active">Chatbot</a>
+    <a>Leads</a>
+    <a>Settings</a>
+    <a>Billing</a>
+  </aside>
+
+  <!-- Main -->
+  <main class="dash-main">
+
+    <!-- Business Info -->
+    <div class="dash-card">
+      <h2>Business Information</h2>
+
+      <label>Business Name</label>
+      <input placeholder="ABC Dental Clinic" />
+
+      <label>Industry</label>
+      <select>
+        <option>Healthcare</option>
+        <option>Ecommerce</option>
+        <option>Education</option>
+        <option>Real Estate</option>
+        <option>Agency</option>
+      </select>
+
+      <label>Services</label>
+      <textarea placeholder="Describe your services"></textarea>
+    </div>
+
+    <!-- Chatbot Personality -->
+    <div class="dash-card">
+      <h2>Chatbot Personality</h2>
+
+      <label>Tone</label>
+      <select>
+        <option>Professional</option>
+        <option>Friendly</option>
+        <option>Sales-focused</option>
+      </select>
+
+      <label>Welcome Message</label>
+      <textarea>
+Hello! How can I help you today?
+      </textarea>
+
+      <button class="btn-primary">
+        Save Chatbot Settings
+      </button>
+    </div>
+
+    <!-- Live Preview -->
+    <div class="dash-card">
+      <h2>Live Chat Preview</h2>
+
+      <div class="chat-preview">
+        <div class="chat-bubble bot">
+          Hello! How can I help you today?
+        </div>
+        <div class="chat-bubble user">
+          What are your prices?
+        </div>
+        <div class="chat-bubble bot">
+          I’d be happy to share our pricing. Can I get your email?
+        </div>
+      </div>
+    </div>
+
+    <!-- Embed Code -->
+    <div class="dash-card">
+      <h2>Embed Chatbot</h2>
+
+      <pre>
+&lt;script
+  src="https://yourdomain.com/chatbot.js"
+  data-client-id="CLIENT_ID"&gt;
+&lt;/script&gt;
+      </pre>
+
+      <button class="btn-primary">
+        Copy Embed Code
+      </button>
+    </div>
+
+  </main>
+
+</div>
+
+</body>
+</html>

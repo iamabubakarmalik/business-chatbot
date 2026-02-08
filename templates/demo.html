@@ -1,32 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Chatbot Demo</title>
+  <meta charset="UTF-8" />
+  <title>OrveChat Demo – AI Chatbot in Action</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Your site styles (optional) -->
-  <link rel="stylesheet" href="/static/style.css">
-  <link rel="stylesheet" href="/static/site.css">
-
-  <!-- Chatbot widget CSS -->
-  <link rel="stylesheet" href="/static/chatbot-widget.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='demo.css') }}">
 </head>
 
 <body>
 
-  <h1>🤖 Chatbot Demo Page</h1>
-  <p>This page is using the embedded chatbot widget.</p>
+{% include "header.html" %}
 
-  <!-- 🔴 VERY IMPORTANT: CONFIG MUST COME FIRST -->
-  <script>
-    window.CHATBOT_CONFIG = {
-      client_id: "bb88c1de",     // 👈 apna REAL client_id
-      api_url: "http://127.0.0.1:8080/chat"
-    };
-  </script>
+<section class="demo-hero">
+  <div class="demo-container">
 
-  <!-- Chatbot widget JS (ALWAYS AT END, WITH DEFER) -->
-  <script src="/static/chatbot-widget.js" defer></script>
+    <div class="demo-text">
+      <h1>See OrveChat in Action</h1>
+      <p>
+        Experience how our AI chatbot engages visitors, answers questions,
+        and captures leads automatically — 24/7.
+      </p>
+
+      <ul class="demo-points">
+        <li>⚡ Instant replies to customer questions</li>
+        <li>📩 Automatic lead capture</li>
+        <li>🧠 AI trained on your business</li>
+        <li>🌐 Works on any website</li>
+      </ul>
+
+      <a href="/signup" class="demo-btn">
+        Start Your Free Chatbot
+      </a>
+    </div>
+
+    <div class="demo-visual">
+      <div class="demo-card">
+        <h3>Live Demo</h3>
+        <p>
+          Open the chat bubble in the bottom-right corner and
+          start talking to the AI assistant.
+        </p>
+        <div class="demo-arrow">↘</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{% include "footer.html" %}
+
+<!-- Chatbot widget -->
+<script
+  src="/static/chatbot-widget.js"
+  data-client-id="demo">
+</script>
 
 </body>
 </html>

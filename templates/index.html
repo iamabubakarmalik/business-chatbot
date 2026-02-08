@@ -1,57 +1,217 @@
-{% include "partials/header.html" %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>AI Chatbot for Businesses</title>
-  <link rel="stylesheet" href="/static/site.css">
+  <meta charset="UTF-8" />
+  <title>OrveChat – AI Chatbot for Websites</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
-<header class="hero">
-  <h1>AI Chatbot for Your Business</h1>
-  <p>Convert visitors into customers automatically</p>
-  <div class="buttons">
-    <a href="/demo" class="btn primary">Try Live Demo</a>
-    <a href="/signup" class="btn">Get Started</a>
+{% include "header.html" %}
+
+
+  <section class="hero">
+    <div class="container hero-container">
+
+      <!-- LEFT CONTENT -->
+  <div class="hero-left">
+
+    <div class="hero-badge">
+      AI Chatbot for Modern Businesses
+    </div>
+
+    <h1>
+      AI Chatbot for Websites, Customer Support & Lead Generation
+    </h1>
+
+    <p>
+      Automate customer support, capture leads, and answer
+      visitor questions instantly with a smart AI chatbot.
+      No coding required.
+    </p>
+
+    <div class="hero-actions">
+      <a href="/signup" class="btn-primary">Try Free Demo</a>
+      <a href="/demo" class="btn-secondary">Book a Live Demo</a>
+    </div>
+
+    <div class="hero-meta">
+      <span>✔ No coding required</span>
+      <span>✔ Setup in minutes</span>
+      <span>✔ 24/7 AI support</span>
+    </div>
+
   </div>
-</header>
 
-<section class="section">
-  <h2>What does it do?</h2>
-  <p>
-    Our AI chatbot answers customer questions, captures leads,
-    and works 24/7 on your website.
-  </p>
+  <!-- RIGHT CHATBOT MOCKUP -->
+  <div class="hero-right">
+    <div class="chatbot-mock">
+
+      <div class="chat-header">
+        <div class="chat-avatar"></div>
+        <div>
+          <strong>OrveChat Assistant</strong>
+          <span class="status">Online</span>
+        </div>
+      </div>
+
+      <div class="chat-body">
+        <div class="chat-msg bot">
+          Hi! How can I help you today?
+        </div>
+
+        <div class="chat-msg user">
+          I want to know your pricing.
+        </div>
+
+        <div class="chat-msg bot">
+          Sure! We offer flexible plans based on your needs.
+        </div>
+      </div>
+
+      <div class="chat-input">
+        <input type="text" placeholder="Type your message..." />
+      </div>
+
+    </div>
+  </div>
+
+</div>
+```
+<!-- FEATURES SECTION -->
+<section class="features">
+  <div class="container">
+
+    <div class="section-head">
+      <span class="section-tag">Why OrveChat</span>
+      <h2>Everything You Need in a Modern AI Chatbot</h2>
+      <p>
+        OrveChat helps businesses automate conversations,
+        capture leads, and support customers — all from one
+        powerful AI chatbot platform.
+      </p>
+    </div>
+
+    <div class="features-grid">
+
+      <div class="feature-card">
+        <div class="feature-icon">🤖</div>
+        <h3>Smart AI Conversations</h3>
+        <p>
+          Natural language AI that understands user intent
+          and responds instantly, 24/7.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>Easy Website Integration</h3>
+        <p>
+          Add OrveChat to your website with a simple embed
+          code — no technical skills needed.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>Leads & Analytics</h3>
+        <p>
+          Capture leads, track conversations, and monitor
+          chatbot performance in real time.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
 </section>
 
-<section class="section dark">
-  <h2>Use Cases</h2>
-  <ul class="grid">
-    <li>Healthcare & Clinics</li>
-    <li>Sales & Lead Generation</li>
-    <li>Customer Support</li>
-    <li>E-commerce Stores</li>
-    <li>Education & Courses</li>
-  </ul>
+<!-- HOW IT WORKS -->
+<section class="how-it-works">
+  <div class="container">
+
+    <div class="section-head">
+      <span class="section-tag">Simple Setup</span>
+      <h2>Start Your AI Chatbot in 3 Easy Steps</h2>
+      <p>
+        No complex setup. Launch your AI chatbot in minutes
+        and start engaging visitors instantly.
+      </p>
+    </div>
+
+    <div class="steps-grid">
+
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <h3>Create Your Chatbot</h3>
+        <p>Sign up and configure your chatbot for your business needs.</p>
+      </div>
+
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <h3>Add to Your Website</h3>
+        <p>Copy the embed code and place it on your site.</p>
+      </div>
+
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <h3>Start Capturing Leads</h3>
+        <p>Your AI chatbot begins answering questions and collecting leads.</p>
+      </div>
+
+    </div>
+
+  </div>
 </section>
 
-<section class="section">
-  <h2>How it works</h2>
-  <ol>
-    <li>Sign up</li>
-    <li>Copy chatbot code</li>
-    <li>Paste on your website</li>
-    <li>Start getting leads 🎯</li>
-  </ol>
+<!-- PRICING PREVIEW -->
+<section class="pricing-preview">
+  <div class="container">
+
+    <div class="section-head">
+      <span class="section-tag">Pricing</span>
+      <h2>Simple Pricing for Every Business</h2>
+      <p>No hidden fees. Start free and upgrade anytime.</p>
+    </div>
+
+    <div class="pricing-grid">
+
+      <!-- Starter -->
+      <div class="pricing-card">
+        <h3>Starter</h3>
+        <div class="price">$0<span>/mo</span></div>
+        <ul>
+          <li>1 Chatbot</li>
+          <li>Basic AI responses</li>
+          <li>Limited conversations</li>
+        </ul>
+        <a href="/signup" class="btn-secondary">Start Free</a>
+      </div>
+
+      <!-- Pro -->
+      <div class="pricing-card featured">
+        <h3>Pro</h3>
+        <div class="price">$19<span>/mo</span></div>
+        <ul>
+          <li>Unlimited conversations</li>
+          <li>Advanced AI</li>
+          <li>Lead capture</li>
+          <li>Analytics</li>
+        </ul>
+        <a href="/signup" class="btn-primary">Get Started</a>
+      </div>
+
+    </div>
+
+  </div>
 </section>
 
-<footer>
-  <p>© 2026 AI Chatbot Platform</p>
-</footer>
+  </section>
+
+{% include "footer.html" %}
 
 </body>
 </html>
-
-{% include "partials/footer.html" %}
